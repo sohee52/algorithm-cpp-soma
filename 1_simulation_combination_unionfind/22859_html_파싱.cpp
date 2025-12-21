@@ -5,13 +5,14 @@ string s;
 vector<string> titles;
 vector<vector<string>> paras;
 
-vector<pair<string, int>> para;
 int main() {
-	ios_base::sync_with_stdio(false);
-	cin.tie(NULL); cout.tie(NULL);
-	getline(cin , s);
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cout.tie(nullptr);
 
-int n = s.size();
+    getline(cin, s);
+
+    int n = s.size();
     int curDiv = -1;
 
     for (int i = 0; i < n; ) {
@@ -19,18 +20,24 @@ int n = s.size();
         // <div title="...">
         if (s.compare(i, 12, "<div title=\"") == 0) {
             i += 12;
-            string t;
-            while (s[i] != '"') t += s[i++];
-            titles.push_back(t);
+
+            string title;
+            while (s[i] != '"') {
+                title += s[i++];
+            }
+
+            titles.push_back(title);
             paras.push_back({});
             curDiv++;
-            i++; // " → skip
+
+            i++; // skip "
         }
 
         // <p>
         else if (s.compare(i, 3, "<p>") == 0) {
             i += 3;
-            string p;
+
+            string paragraph;
             bool space = false;
 
             while (true) {
@@ -40,7 +47,7 @@ int n = s.size();
                     break;
                 }
 
-                // p 안의 tag → skip
+                // p 안의 tag는 skip
                 if (s[i] == '<') {
                     while (s[i] != '>') i++;
                     i++;
@@ -49,16 +56,17 @@ int n = s.size();
 
                 // 공백
                 if (s[i] == ' ') {
-                    if (!space) p += ' ';
+                    if (!space) paragraph += ' ';
                     space = true;
                 } else {
-                    p += s[i];
+                    paragraph += s[i];
                     space = false;
                 }
+
                 i++;
             }
 
-            paras[curDiv].push_back(p);
+            paras[curDiv].push_back(paragraph);
         }
 
         else {
@@ -68,8 +76,10 @@ int n = s.size();
 
     for (int i = 0; i < titles.size(); i++) {
         cout << "title : " << titles[i] << "\n";
-        for (auto &p : paras[i]) {
+        for (const auto &p : paras[i]) {
             cout << p << "\n";
         }
     }
+
+    return 0;
 }
