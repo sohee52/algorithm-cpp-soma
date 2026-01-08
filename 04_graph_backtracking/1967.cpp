@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 const int MAX = 10004;
-int n, tmp, a, b, c, maxDist = 0, maxNode;
+int n, a, b, c, maxDist = 0, maxNode;
 bool visited[MAX];
 vector<pair<int, int>> v[MAX];
 void dfs(int x, int dist) {
@@ -22,8 +22,7 @@ int main() {
 	ios_base::sync_with_stdio(false);
 	cin.tie(nullptr);
 	cin >> n;
-    tmp = n;
-    while(tmp--) {
+    while(n--) {
         cin >> a >> b >> c;
         v[a].push_back({b, c});
         v[b].push_back({a, c});
