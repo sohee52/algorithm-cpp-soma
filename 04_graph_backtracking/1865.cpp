@@ -41,11 +41,7 @@ int main() {
             }
         }
 
-        if (cycle) {
-            cout << "YES\n";
-        } else {
-            cout << "NO\n";
-        }
+        if (cycle) cout << "YES\n";
+        else cout << "NO\n";
     }
-    return 0;
 }
